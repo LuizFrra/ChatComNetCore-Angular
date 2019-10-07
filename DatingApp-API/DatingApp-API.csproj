@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <AssemblyName>DatingApp.API</AssemblyName>
+    <RootNamespace>DatingApp.API</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
