@@ -1,12 +1,9 @@
 ﻿using DatingApp.API.Models;
 using DatingApp.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using BCrypt.Net;
 
-namespace DatingApp.API.Data
+namespace DatingApp.API.Data.Auth
 {
     public class AuthRepository : IAuthRepository<User>
     {
@@ -25,7 +22,7 @@ namespace DatingApp.API.Data
             if (user == null)
                 return await Task.FromResult<User>(null);
 
-            if(!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+            if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
                 return await Task.FromResult<User>(null);
 
             //await ReHashPassword(user, password);
@@ -36,7 +33,7 @@ namespace DatingApp.API.Data
 
         private async Task ReHashPassword(User user, string password)
         {
-            if(BCrypt.Net.BCrypt.PasswordNeedsRehash(user.PasswordHash, 11))
+            if (BCrypt.Net.BCrypt.PasswordNeedsRehash(user.PasswordHash, 11))
             {
                 var newPasswordHash = CreatePasswordHash(password);
 
@@ -54,7 +51,7 @@ namespace DatingApp.API.Data
         {
             if (await UserExist(user))
                 return null;
-            
+
             user.PasswordHash = CreatePasswordHash(user.PasswordHash);
 
             await dataContext.AddAsync<User>(user);

@@ -1,10 +1,7 @@
 ﻿using DatingApp.API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace DatingApp.API.Data
+namespace DatingApp.API.Data.Auth
 {
     public interface IAuthRepository<T> where T : User
     {
