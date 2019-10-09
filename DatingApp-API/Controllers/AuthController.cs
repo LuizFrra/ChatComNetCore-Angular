@@ -58,6 +58,7 @@ namespace DatingApp.API.Controllers
         [Authorize]
         public ActionResult<string> generateGuid()
         {
+
             var guidString = Guid.NewGuid().ToString() + Guid.NewGuid().ToString() + Guid.NewGuid().ToString() + Guid.NewGuid().ToString();
             return guidString.Replace("-", "");
         }

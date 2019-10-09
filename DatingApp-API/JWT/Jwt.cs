@@ -5,5 +5,6 @@
         public string Token { get; set; }
         public long Expires { get; set; }
         public string TokenType { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -1,0 +1,12 @@
+<div *ngIf="!loggedIn()" class="text-center form-sign-body">
+    <form #registerForm="ngForm" (ngSubmit)="register()" class="form-signin">
+      <img class="mb-3" src="assets/images/loginIMG.svg" alt="" width="72" height="72">
+      <h1 class="h3 mbm font-weight-normal">Sign Up</h1>
+      <input type="email" id="inputEmail" class="form-control" name="username" placeholder="Username" 
+                  required autofocus="" [(ngModel)]="model.name">
+      <div class="mb-3"></div>
+      <input type="password" id="inputPassword" class="form-control" name="passwordHash" 
+                  placeholder="Password" [(ngModel)]="model.passwordhash" required>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
+    </form>
+  </div>

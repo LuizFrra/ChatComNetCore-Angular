@@ -98,7 +98,7 @@ namespace DatingApp.API.JWT.Handlers
             var payload = new JwtPayload
             {
                 {"sub", user.Id},
-                {"unique_name", user.Name},
+                {"user_name", user.Name},
                 {"iss", issuer},
                 {"iat", now},
                 {"nbf", now},
@@ -109,7 +109,7 @@ namespace DatingApp.API.JWT.Handlers
             var jwt = new JwtSecurityToken(jwtHeader, payload);
             var token = jwtSecurityTokenHandler.WriteToken(jwt);
 
-            return new Jwt { Token = token, Expires = exp, TokenType = "bearer" };
+            return new Jwt { Token = token, Expires = exp, TokenType = "bearer", Name = user.Name};
         }
     }
 }
