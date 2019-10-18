@@ -8,7 +8,6 @@ import { AuthService } from '../_services/auth.service';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  username: any;
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
@@ -17,7 +16,6 @@ export class NavComponent implements OnInit {
   login() {
     this.authService.login(this.model).subscribe(next => {
       console.log('Logged in sucefully');
-      this.username = localStorage.getItem('username');
     }, error => {
       console.log('failed to login');
     });
@@ -30,7 +28,11 @@ export class NavComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
     console.log('logged out');
   }
 
+  getUserName() {
+    return localStorage.getItem('username');
+  }
 }
