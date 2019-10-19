@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ChatService } from '../_services/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -10,7 +11,9 @@ export class ChatComponent implements OnInit {
 
   @Input() IsLoggedFromNav: any;
 
-  constructor(private httpCliente: HttpClient) { }
+  isConnected: boolean;
+
+  constructor(private httpCliente: HttpClient, private chatService: ChatService) { }
 
   ngOnInit() {
   }
@@ -18,7 +21,8 @@ export class ChatComponent implements OnInit {
   connectToServer() {
     if (this.IsLoggedFromNav) {
       console.log('connect');
+      this.chatService.connectToServer();
+      this.isConnected = true;
     }
   }
-
 }

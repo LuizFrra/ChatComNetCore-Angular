@@ -126,3 +126,7 @@
     cursor: pointer;
 }
 
+.buttonIsConnected {
+    background: darkblue !important;
+    margin-top: 40vh;
+}

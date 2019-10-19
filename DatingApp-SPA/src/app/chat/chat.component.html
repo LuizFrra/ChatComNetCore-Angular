@@ -1,4 +1,4 @@
-<div *ngIf="IsLoggedFromNav" class="background-chat ">
+<div *ngIf="isConnected && IsLoggedFromNav" class="background-chat ">
     <div class="chat-container">
         <div class="chat-title">
             <span>Chat Publico</span>
@@ -40,4 +40,10 @@
             <textarea type="text" placeholder="Digite algo ..." maxlength="300"></textarea>
         </div>
     </div>
+</div>
+
+<div *ngIf="!isConnected && IsLoggedFromNav" class="background-chat text-center">
+    <button type="submit" class="btn btn-primary active buttonIsConnected" (click)="connectToServer()">
+        Connectar-se
+    </button>
 </div>
