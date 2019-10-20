@@ -1,5 +1,5 @@
-﻿using DatingApp.API.JWT.Chaves;
-using DatingApp.API.Models;
+﻿using ChatApp.API.JWT.Chaves;
+using ChatApp.API.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace DatingApp.API.JWT.Handlers
+namespace ChatApp.API.JWT.Handlers
 {
     public class JwtHandler : IJwtHandler
     {

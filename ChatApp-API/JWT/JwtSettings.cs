@@ -1,4 +1,4 @@
-﻿namespace DatingApp.API.JWT
+﻿namespace ChatApp.API.JWT
 {
     public class JwtSettings
     {

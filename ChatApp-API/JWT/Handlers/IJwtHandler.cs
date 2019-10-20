@@ -1,7 +1,7 @@
-﻿using DatingApp.API.Models;
+﻿using ChatApp.API.Models;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DatingApp.API.JWT.Handlers
+namespace ChatApp.API.JWT.Handlers
 {
     public interface IJwtHandler
     {

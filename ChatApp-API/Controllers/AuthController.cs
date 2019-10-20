@@ -1,13 +1,13 @@
-﻿using DatingApp.API.Data.Auth;
-using DatingApp.API.JWT.Handlers;
-using DatingApp.API.Models;
+﻿using ChatApp.API.Data.Auth;
+using ChatApp.API.JWT.Handlers;
+using ChatApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace DatingApp.API.Controllers
+namespace ChatApp.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]

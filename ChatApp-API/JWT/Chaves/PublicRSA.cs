@@ -3,7 +3,7 @@ using StatePrinting;
 using System;
 using System.Security.Cryptography;
 
-namespace DatingApp.API.JWT.Chaves
+namespace ChatApp.API.JWT.Chaves
 {
     public class PublicRSA
     {

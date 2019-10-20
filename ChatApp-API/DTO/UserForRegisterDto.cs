@@ -1,4 +1,4 @@
-﻿namespace DatingApp.API.DTO
+﻿namespace ChatApp.API.DTO
 {
     public class UserForRegisterDto
     {

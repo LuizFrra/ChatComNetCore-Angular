@@ -1,9 +1,9 @@
-﻿using DatingApp.API.Data.Auth;
-using DatingApp.API.JWT;
-using DatingApp.API.JWT.Chaves;
-using DatingApp.API.JWT.Handlers;
-using DatingApp.API.Models;
-using DatingApp.Data;
+﻿using ChatApp.API.Data.Auth;
+using ChatApp.API.JWT;
+using ChatApp.API.JWT.Chaves;
+using ChatApp.API.JWT.Handlers;
+using ChatApp.API.Models;
+using ChatApp.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DatingApp
+namespace ChatApp
 {
     public class Startup
     {

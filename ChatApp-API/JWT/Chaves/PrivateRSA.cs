@@ -4,7 +4,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace DatingApp.API.JWT.Chaves
+namespace ChatApp.API.JWT.Chaves
 {
     public class PrivateRSA
     {

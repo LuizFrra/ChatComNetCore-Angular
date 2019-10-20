@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatingApp-API", "DatingApp-API.csproj", "{7F6EA186-50A0-4FAE-88B4-54CF2BA43326}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatApp-API", "ChatApp-API.csproj", "{7F6EA186-50A0-4FAE-88B4-54CF2BA43326}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
