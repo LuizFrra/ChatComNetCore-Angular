@@ -24,7 +24,7 @@ namespace ChatApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Register([FromBody]User user)
+        public async Task<IActionResult> Register([FromBody]User user)
         {
             if (await authRepository.UserExist(user))
                 return BadRequest("User already Exist.");
@@ -34,33 +34,31 @@ namespace ChatApp.API.Controllers
             if (createdUser == null)
                 return BadRequest("Something went wrong.");
 
-            createdUser.PasswordHash = "";
+            createdUser.Password = "";
 
             return Ok(createdUser);
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Login([FromBody]User user)
+        public async Task<IActionResult> Login([FromBody]User user)
         {
-            var userFromRepo = await authRepository.Login(user.Name, user.PasswordHash);
+            var userFromRepo = await authRepository.Login(user.Name, user.Password);
 
             if (userFromRepo == null)
                 return Unauthorized();
 
-            userFromRepo.PasswordHash = "";
-
-
+            userFromRepo.Password = "";
 
             return Ok(jwtHandler.Create(userFromRepo));
         }
 
         [HttpGet]
         [Authorize]
-        public ActionResult<string> generateGuid()
+        public IActionResult generateGuid()
         {
 
             var guidString = Guid.NewGuid().ToString() + Guid.NewGuid().ToString() + Guid.NewGuid().ToString() + Guid.NewGuid().ToString();
-            return guidString.Replace("-", "");
+            return Ok(guidString.Replace("-", ""));
         }
     }
 }

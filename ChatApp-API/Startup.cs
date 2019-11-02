@@ -4,14 +4,18 @@ using ChatApp.API.JWT.Chaves;
 using ChatApp.API.JWT.Handlers;
 using ChatApp.API.Models;
 using ChatApp.Data;
+using DatingApp.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Primitives;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace ChatApp
 {
@@ -35,7 +39,7 @@ namespace ChatApp
             services.AddSingleton<PublicRSA>();
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
             services.AddSingleton<IJwtHandler, JwtHandler>();
-
+            services.AddSingleton<Sockets>();
             var serviceProvider = services.BuildServiceProvider();
             var jwtHandler = serviceProvider.GetService<IJwtHandler>();
             
@@ -44,11 +48,34 @@ namespace ChatApp
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-            }).AddJwtBearer(j =>
+            }).AddJwtBearer(options =>
             {
-                j.TokenValidationParameters = jwtHandler.Parameters;
-                j.SaveToken = true;
-                j.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = jwtHandler.Parameters;
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+
+                options.Events = new JwtBearerEvents()
+                {
+                    OnMessageReceived = context =>
+                    {
+                        if(context.Request.Headers.ContainsKey("sec-websocket-protocol"))
+                        {
+                            StringValues protocolsValues;
+                            context.Request.Headers.TryGetValue("sec-websocket-protocol", out protocolsValues);
+                            var protocols = protocolsValues.ToString().Split(',');
+
+                            if(protocols.Length == 2)
+                            {
+                                if (protocols[0] == "jwt")
+                                {
+                                    context.Request.Headers["sec-websocket-protocol"] = protocols[0];
+                                    context.Token = protocols[1].Trim();
+                                }
+                            }
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
         }
 
@@ -63,17 +90,25 @@ namespace ChatApp
                     ctx.Response.ContentLength = 0;
                 }
             });
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            var webSocketOptions = new WebSocketOptions()
+            {
+                KeepAliveInterval = TimeSpan.FromSeconds(120),
+                ReceiveBufferSize = 1000
+            };
 
             var jwtHandler = app.ApplicationServices.GetService<IJwtHandler>();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
+
+            app.UseWebSockets(webSocketOptions);
 
             app.UseMvcWithDefaultRoute();
         }

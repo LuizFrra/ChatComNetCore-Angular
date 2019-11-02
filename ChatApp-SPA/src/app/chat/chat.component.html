@@ -5,8 +5,24 @@
             <i class="fa fa-trash fa-2x"></i>
         </div>
 
-        <div class="chat-message-list">
-            <div class="message-row self-message">
+        <div #divMessage class="chat-message-list">
+            <ng-container *ngFor="let message of messages">
+                <div *ngIf="message.IsMySelf" class="message-row self-message">
+                    <div class="message-content">
+                        <div class="message-text">{{message.Texto}}</div>
+                        <div class="message-date">16 April</div>
+                    </div>
+                </div>
+                <div *ngIf="!message.IsMySelf" class="message-row other-message">
+                    <div class="message-content">
+                        <img src="" src="../../assets/images/profile.svg" alt="">
+                        <div class="message-text">{{message.Texto}}</div>
+                        <div>{{message.Apelido}}</div>
+                        <div class="message-date">16 April</div>
+                    </div>
+                </div>
+            </ng-container>
+            <!-- <div class="message-row self-message">
                 <div class="message-content">
                     <div class="message-text">Ola sou o eu
                         as mensagem n devme ta quebrando tanto aqui
@@ -16,8 +32,8 @@
                     </div>
                     <div class="message-date">16 April</div>
                 </div>
-            </div>
-            <div class="message-row other-message">
+            </div> -->
+            <!-- <div class="message-row other-message">
                 <div class="message-content">
 
                     <img class="" src="../../assets/images/profile.svg" alt="">
@@ -33,11 +49,12 @@
                     <div>fulano</div>
                     <div class="message-date">16 April</div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="chat-form">
             <i class="fa fa-paperclip fa-4x"></i>
-            <textarea type="text" placeholder="Digite algo ..." maxlength="300"></textarea>
+            <textarea [(ngModel)]="textarea" type="text" placeholder="Digite algo ..." maxlength="300"
+                (keyup.Enter)="sendMessage()"></textarea>
         </div>
     </div>
 </div>

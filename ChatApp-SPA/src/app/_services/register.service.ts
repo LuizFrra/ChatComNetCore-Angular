@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
-  baseUrl = 'http://localhost:5000/api/auth/';
-constructor(private httpClient: HttpClient) { }
+  baseUrl: string;
+constructor(private httpClient: HttpClient) {
+  this.baseUrl = environment.apiUrl + ':' + environment.port + '/api/auth/';
+}
 
 register(model: any) {
   return this.httpClient.post(this.baseUrl + 'register', model)

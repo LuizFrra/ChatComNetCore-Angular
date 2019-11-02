@@ -13,7 +13,7 @@ namespace ChatApp.Data
         {
             modelBuilder.Entity<User>().Property(p => p.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<User>().Property(p => p.Name).IsRequired();
-            modelBuilder.Entity<User>().Property(p => p.PasswordHash).IsRequired();
+            modelBuilder.Entity<User>().Property(p => p.Password).IsRequired();
             modelBuilder.Entity<User>().Property(p => p.ImagePath).IsRequired();
             modelBuilder.Entity<User>().ToTable("tbl_users");
 

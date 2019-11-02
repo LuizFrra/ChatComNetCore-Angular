@@ -22,22 +22,25 @@ namespace ChatApp.API.Data.Auth
             if (user == null)
                 return await Task.FromResult<User>(null);
 
-            if (!BCrypt.Net.BCrypt.Verify(password, user.PasswordHash))
+            if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
                 return await Task.FromResult<User>(null);
 
             //await ReHashPassword(user, password);
-            user.PasswordHash = "";
+            user.Password = "";
+            
+            if(string.IsNullOrEmpty(user.ImagePath))
+                user.ImagePath = "";
 
             return await Task.FromResult(user);
         }
 
         private async Task ReHashPassword(User user, string password)
         {
-            if (BCrypt.Net.BCrypt.PasswordNeedsRehash(user.PasswordHash, 11))
+            if (BCrypt.Net.BCrypt.PasswordNeedsRehash(user.Password, 11))
             {
                 var newPasswordHash = CreatePasswordHash(password);
 
-                user.PasswordHash = newPasswordHash;
+                user.Password = newPasswordHash;
 
                 dataContext.Update(user);
 
@@ -52,13 +55,13 @@ namespace ChatApp.API.Data.Auth
             if (await UserExist(user))
                 return null;
 
-            user.PasswordHash = CreatePasswordHash(user.PasswordHash);
+            user.Password = CreatePasswordHash(user.Password);
 
             await dataContext.AddAsync<User>(user);
 
             int addUserResult = await dataContext.SaveChangesAsync();
 
-            user.PasswordHash = "";
+            user.Password = "";
 
             if (addUserResult == 1)
                 return await Task.FromResult(user);

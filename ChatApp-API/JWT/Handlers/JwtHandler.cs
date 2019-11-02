@@ -31,7 +31,7 @@ namespace ChatApp.API.JWT.Handlers
         {
             this.privateRSA = privateRSA;
             this.publicRSA = publicRSA;
-
+            
             jwtSettings = settings.Value;
 
             if (jwtSettings.UseRsa)
@@ -52,6 +52,7 @@ namespace ChatApp.API.JWT.Handlers
             Parameters = new TokenValidationParameters
             {
                 ValidateAudience = false,
+                ValidateActor = false,
                 ValidIssuer = jwtSettings.Issuer,
                 IssuerSigningKey = securityKey,
                 ValidateIssuerSigningKey = true,
@@ -89,6 +90,11 @@ namespace ChatApp.API.JWT.Handlers
 
         public Jwt Create(User user)
         {
+            if(string.IsNullOrEmpty(user.ImagePath))
+            {
+                user.ImagePath = "";
+            }
+
             var nowUtc = DateTime.UtcNow;
             var expires = nowUtc.AddMinutes(jwtSettings.expiryMinutes);
             var centuryBegin = new DateTime(1970, 1, 1);
@@ -99,6 +105,7 @@ namespace ChatApp.API.JWT.Handlers
             {
                 {"sub", user.Id},
                 {"user_name", user.Name},
+                {"user_photo_path", user.ImagePath},
                 {"iss", issuer},
                 {"iat", now},
                 {"nbf", now},
