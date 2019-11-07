@@ -53,7 +53,6 @@ namespace ChatApp.API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult generateGuid()
         {
 
