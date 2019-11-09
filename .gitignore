@@ -4,10 +4,6 @@ bin/
 obj/
 release/
 releases/
-.DS_Store
-appsettings.json
-
-.DS_STORE
 
 /dist/
 /bazel-out

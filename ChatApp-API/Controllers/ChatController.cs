@@ -51,7 +51,7 @@ namespace ChatApp_API.Controllers
             var imagePath = HttpContext.User.FindFirst("user_photo_path").Value;
             Mensagem mensagem = null;
             
-            while (!result.CloseStatus.HasValue)
+            while (socket.State == WebSocketState.Open)
             {
                 //await socket.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
                 if (result.Count > 1)

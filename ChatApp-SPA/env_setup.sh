@@ -1,0 +1,5 @@
+echo "Configurando Variaveis de Ambientes : ... " 
+echo "Back-end API -> $api:$port" 
+sed -i -e 's@$api@'"$api"'@g' "src/environments/environment.prod.ts" 
+sed -i -e 's@$port@'"$port"'@g' "src/environments/environment.prod.ts" 
+echo "FIM" 

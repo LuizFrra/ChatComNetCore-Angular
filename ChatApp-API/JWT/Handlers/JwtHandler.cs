@@ -71,21 +71,23 @@ namespace ChatApp.API.JWT.Handlers
 
         private void InitializeRSA()
         {
-            using (RSA publicRSAI = RSA.Create())
-            {
+            /*using(*/
+            RSA publicRSAI = RSA.Create();//)
+            //{
                 publicRSAI.ImportParameters(publicRSA.GetParameters());
                 securityKey = new RsaSecurityKey(publicRSAI);
-            }
+            //}
 
             if (!jwtSettings.UseRsa)
                 return;
 
-            using (RSA privateRSAI = RSA.Create())
-            {
+            /*using(*/
+            RSA privateRSAI = RSA.Create();//)
+            //{
                 privateRSAI.ImportParameters(privateRSA.GetParameters());
                 var privateKeyE = new RsaSecurityKey(privateRSAI);
                 signingCredentials = new SigningCredentials(privateKeyE, SecurityAlgorithms.RsaSha256);
-            }
+            //}
         }
 
         public Jwt Create(User user)
